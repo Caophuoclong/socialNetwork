@@ -1,10 +1,14 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { globalSlice, userSlice } from '../reducers';
+import { globalSlice, userSlice, conversationSlice, messageSlice, notificationSlice, friendSlice } from '../reducers';
 
 export const store = configureStore({
   reducer: {
     globalSlice,
     userSlice,
+    messageSlice,
+    conversationSlice,
+    notificationSlice,
+    friendSlice,
   },
 });
 

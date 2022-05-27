@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IGlobalSilce } from "../interfaces";
-
+import { IConversation } from "../interfaces";
+interface IGlobalSilce {
+    choosendConversation: IConversation[];
+}
 const initialState: IGlobalSilce = {
-
+    choosendConversation: []
 }
 
 const globalSlice = createSlice({

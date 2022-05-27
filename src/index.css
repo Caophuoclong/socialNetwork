@@ -14,3 +14,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.slick-arrow{
+  top: 1/2;
+  transform: translateY(-100%);
+  z-index: 50;
+}
+.slick-prev{
+  left: -5%;
+}
+.slick-next{
+  right: -5%;
+}
+.slick-prev:before,
+.slick-next:before {
+    color:black; 
+}

@@ -41,7 +41,7 @@ export default function LeftBar({ className }: Props) {
     {
       icon: MdOutlineLogout,
       title: 'Logout',
-      link: '/logout',
+      link: '/123',
     },
   ];
   const location = useLocation();
@@ -51,9 +51,12 @@ export default function LeftBar({ className }: Props) {
     if (elements) {
       elements.forEach((element) => {
         element.classList.remove('bg-[#4e5d78]', 'text-white');
+        element.classList.add('text-[#4e5d78]');
+
         const url = new URL(element.href);
         if (url.pathname === pathName) {
           element.classList.add('bg-[#4e5d78]', 'text-white');
+          element.classList.remove('text-[#4e5d78]');
         }
       });
     }
@@ -66,10 +69,10 @@ export default function LeftBar({ className }: Props) {
           <Link
             to={item.link}
             key={index}
-            className="flex items-center gap-x-2 font-medium p-4 rounded-md hover:bg-[#4e5d78] hover:text-white text-[#4e5d78] cursor-pointer"
+            className='flex items-center gap-x-2 font-medium p-4 rounded-md hover:bg-[#4e5d78] hover:text-white text-[#4e5d78] cursor-pointer'
           >
-            <Icon size="24px" />
-            <span className="">{item.title}</span>
+            <Icon size='24px' />
+            <span className=''>{item.title}</span>
           </Link>
         );
       })}

@@ -4,6 +4,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      'awesome': ['Font Awesome 5 Free', 'sans-serif'],
+    }
   },
   plugins: [],
 }
