@@ -17,6 +17,8 @@ export const privateRoutes: Array<IRoute> = [
     {
         path: "/notifications",
         component: Notifications,
+        layout: LayoutWithoutRightBar
+
     },
     {
         path: "/messages",
@@ -31,9 +33,13 @@ export const privateRoutes: Array<IRoute> = [
     {
         path: "/profile",
         component: Profile,
+        layout: LayoutWithoutRightBar
+
     },
     {
         path: "/settings",
         component: Settings,
+        layout: LayoutWithoutRightBar
+
     }
 ]

@@ -8,24 +8,44 @@ interface Interface {
 const initialState: Interface = {
     conversations: [
         {
-            _id: "1",
-            createAt: Date.now().toLocaleString(),
+            imgUrl: 'https://picsum.photos/40',
             participants: [
-                {
-                    _id: "0",
-                    imgUrl: "https://images.unsplash.com/photo-1653594964387-a26001bc8921?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-                    name: "John Smith",
-                    username: "johhnsmit",
-                },
-                {
-                    _id: "2",
-                    imgUrl: "https://images.unsplash.com/photo-1653594964387-a26001bc8921?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-                    name: "John Smith123",
-                    username: "johhnsmit",
-                },
+                { _id: "0", name: "John Smith", username: "johhnsmit", imgUrl: "https://picsum.photos/40" },
+                { _id: "f2", name: "John Smith123", username: "johhnsmit", imgUrl: "https://picsum.photos/40" }
             ],
+            createAt: "asdas",
             type: "private",
-        }
+            _id: '4',
+        },
+        {
+            imgUrl: 'https://picsum.photos/40',
+            participants: [
+                { _id: "0", name: "John Smith", username: "johhnsmit", imgUrl: "https://picsum.photos/40" },
+                { _id: "f3", name: "John Smith1223", username: "johhnsmit", imgUrl: "https://picsum.photos/40" }
+            ],
+            createAt: "asdas",
+            type: "private",
+            _id: '3',
+        },
+        {
+            imgUrl: 'https://picsum.photos/40',
+            participants: [
+                { _id: "0", name: "John Smith", username: "johhnsmit", imgUrl: "https://picsum.photos/40" },
+                { _id: "f4", name: "John ", username: "johhnsmit", imgUrl: "https://picsum.photos/40" }
+            ],
+            createAt: "asdas",
+            type: "private",
+            _id: '1',
+        },
+        {
+            imgUrl: 'https://picsum.photos/40',
+            participants: [
+                { _id: "0", name: "John Smith", username: "johhnsmit", imgUrl: "https://picsum.photos/40" },
+                { _id: "f1", name: "JCakCak", username: "johhnsmit4", imgUrl: "https://picsum.photos/40" }],
+            createAt: "asdas",
+            type: "private",
+            _id: '7',
+        },
     ],
     loading: false
 }

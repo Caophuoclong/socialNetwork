@@ -9,11 +9,11 @@ type Props = {
 
 function DefaultLayout({ children }: Props) {
   return (
-    <div className='p-4 flex flex-col gap-y-4'>
+    <div className='flex flex-col h-full px-2'>
       <Header />
-      <div className='flex gap-x-2'>
-        <LeftBar className='w-[250px]' />
-        <main className='flex-1 bg-[#f9fafb] rounded-lg p-8'>{children}</main>
+      <div className='flex gap-x-2 bg-[#f0f2f5] h-[95%] mt-auto'>
+        <LeftBar className='w-[250px] h-full' />
+        <main className='flex-1 bg-[#f9fafb] rounded-lg'>{children}</main>
         <RightBar className='w-[300px]' />
       </div>
     </div>
@@ -21,11 +21,11 @@ function DefaultLayout({ children }: Props) {
 }
 export function LayoutWithoutRightBar({ children }: Props) {
   return (
-    <div className='p-4 flex flex-col gap-y-4'>
+    <div className='flex flex-col h-full px-2'>
       <Header />
-      <div className='flex gap-x-2'>
-        <LeftBar className='w-[250px]' />
-        <main className='flex-1 bg-[#f9fafb] rounded-lg p-8'>{children}</main>
+      <div className='flex gap-x-2 bg-[#f0f2f5] h-[95%] mt-auto'>
+        <LeftBar className='w-[250px] h-full' />
+        <main className='flex-1 bg-[#f9fafb] rounded-lg'>{children}</main>
       </div>
     </div>
   );

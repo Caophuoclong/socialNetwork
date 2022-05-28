@@ -1,23 +1,47 @@
 import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { IConversation } from '../../../interfaces';
+import { addChoosenConversation } from '../../../reducers/globalReducer';
+import { away } from '../../MessageList/chatLogic';
 
 type Props = {
-  imgUrl: string;
-  name: string;
-  online: boolean;
-  last?: string;
+  conversation: IConversation;
 };
 
-export default function Conversation({ imgUrl, name, online, last }: Props) {
+export default function Conversation({ conversation }: Props) {
+  const choosendConversations = useAppSelector(
+    (state) => state.globalSlice.choosendConversation
+  );
+  const user = useAppSelector((state) => state.userSlice);
+  const friends = useAppSelector((state) => state.friendSlice.friends);
+  const other = conversation.participants.filter(
+    (participant) => participant._id !== user._id
+  )[0];
+  const friend = friends.filter((friend) => friend._id === other._id)[0];
+  const dispatch = useAppDispatch();
+  const handleAddChoosenConversation = () => {
+    let isExist = false;
+    choosendConversations.map((conv) => {
+      if (conv._id === conversation._id) {
+        isExist = true;
+      }
+    });
+    !isExist && dispatch(addChoosenConversation(conversation));
+  };
+  const locale = useAppSelector((state) => state.globalSlice.locale);
   return (
-    <div className='flex gap-x-2 items-center cursor-pointer hover:bg-gray-300 rounded-lg p-1'>
-      <img src={imgUrl} alt='' className='w-10 h-10 rounded-full ' />
-      <span className='text-[#52617b] font-semibold'>{name}</span>
+    <div
+      className='flex gap-x-2 items-center cursor-pointer hover:bg-gray-300 rounded-lg p-1'
+      onClick={handleAddChoosenConversation}
+    >
+      <img src={friend.imgUrl} alt='' className='w-10 h-10 rounded-full ' />
+      <span className='text-[#52617b] font-semibold'>{friend.name}</span>
       <div className='ml-auto mr-2'>
-        {online ? (
+        {friend.isOnline ? (
           <div className='w-2 h-2 rounded-full bg-green-400'></div>
         ) : (
           <span className='text-sm font-light text-gray-400 italic'>
-            {last}
+            {away(friend.lastOnline.toLocaleString(), locale)}
           </span>
         )}
       </div>

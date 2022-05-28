@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NotFound from './components/NotFound';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { DefaultLayout } from './components';
 import { privateRoutes, publicRoutes } from './routes';
 import { IRoute } from './interfaces';
+import moment from 'moment';
+import { useAppSelector } from './app/hooks';
+import 'moment/locale/vi';
 function App() {
+  const locale = useAppSelector((state) => state.globalSlice.locale);
+  useEffect(() => {
+    moment.locale(locale);
+  }, [locale]);
   return (
     <Router>
       <Routes>
