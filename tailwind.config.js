@@ -1,6 +1,8 @@
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
+    // "./node_modules/flowbite/**/*.{js, jsx, ts, tsx}"
+
   ],
   theme: {
     extend: {
@@ -15,5 +17,8 @@ module.exports = {
       'awesome': ['Font Awesome 5 Free', 'sans-serif'],
     }
   },
-  plugins: [],
+  plugins: [
+    // require('flowbite/plugin')
+
+  ],
 }

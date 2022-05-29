@@ -18,6 +18,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+input{
+  border: none;
+  outline: none;
+}
+input[type='text']:focus{
+  outline: none !important;
+  border-color: transparent !important;
+  outline-offset: 0;
+}
 .slick-arrow{
   top: 1/2;
   transform: translateY(-100%);

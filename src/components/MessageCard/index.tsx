@@ -1,23 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { HiOutlineMinus } from 'react-icons/hi';
 import { TiTimes } from 'react-icons/ti';
 import { IoAddCircle, IoImage } from 'react-icons/io5';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { IConversation, IMessage } from '../../interfaces';
+import { EnumMessageType, IConversation, IMessage } from '../../interfaces';
 import { removeChoosenConversation } from '../../reducers/globalReducer';
 import { FaRegHeart } from 'react-icons/fa';
 import InputCard from '../InputCard';
 import { RiFileGifFill } from 'react-icons/ri';
 import { HiOutlinePaperAirplane } from 'react-icons/hi';
-import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
 import MessageList from '../MessageList';
-import { addMessages } from '../../reducers/messageReducer';
+import { addMessages } from '~/reducers/messageReducer';
 import { away } from '../MessageList/chatLogic';
 import { FiMaximize2 } from 'react-icons/fi';
-import FileChoosen from '../FileChoosen';
+import { FileChoosen, sliderSettings } from '~/constants';
+import Input from '../Input';
+import { Avatar, Dropdown } from 'flowbite-react';
+import PreviewFile from '../PreviewFile';
+import Slider from 'react-slick';
 type Props = {
   conversation: IConversation;
 };
@@ -33,11 +35,14 @@ export default function MessageCard({ conversation }: Props) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const messageListRef = useRef<HTMLDivElement>(null);
   const inputBoxRef = useRef<HTMLDivElement>(null);
+  const allFileRef = useRef<HTMLLabelElement>(null);
   const imgRef = useRef<HTMLLabelElement>(null);
   const gifRef = useRef<HTMLLabelElement>(null);
+  const refFileChoosen = [allFileRef, imgRef, gifRef];
+  FileChoosen.forEach((file, index) => (file.ref = refFileChoosen[index]));
   const headerRef = useRef<HTMLDivElement>(null);
 
-  const wFileRef = 35;
+  const wFileRef = '350px';
   const dispatch = useAppDispatch();
 
   const [isMinimize, setIsMinimized] = useState(false);
@@ -65,7 +70,7 @@ export default function MessageCard({ conversation }: Props) {
         createAt: new Date().toISOString(),
         senderId: user._id,
         text: text,
-        type: 'text',
+        type: EnumMessageType.TEXT,
       };
       setText('');
       dispatch(addMessages(message));
@@ -79,14 +84,20 @@ export default function MessageCard({ conversation }: Props) {
     if (fileRef.current)
       if (text.length > 0) {
         fileRef.current.classList.add('w-[10%]');
-        fileRef.current.classList.remove(`w-[${wFileRef}%]`);
-        imgRef.current && imgRef.current.classList.add('hidden');
-        gifRef.current && gifRef.current.classList.add('hidden');
+        fileRef.current.classList.remove(`min-w-[${wFileRef}]`);
+        for (let i = 1; i < refFileChoosen.length; i++) {
+          if (refFileChoosen[i].current && refFileChoosen[i]) {
+            refFileChoosen[i]!.current!.classList.add('hidden');
+          }
+        }
       } else {
         fileRef.current.classList.remove('w-[10%]');
-        fileRef.current.classList.add(`w-[${wFileRef}%]`);
-        imgRef.current && imgRef.current.classList.remove('hidden');
-        gifRef.current && gifRef.current.classList.remove('hidden');
+        fileRef.current.classList.add(`min-w-[${wFileRef}]`);
+        for (let i = 1; i < refFileChoosen.length; i++) {
+          if (refFileChoosen[i].current && refFileChoosen[i]) {
+            refFileChoosen[i]!.current!.classList.remove('hidden');
+          }
+        }
       }
   }, [text]);
   useEffect(() => {
@@ -121,51 +132,66 @@ export default function MessageCard({ conversation }: Props) {
       }
     }
   }, [isMinimize]);
-
+  const array = [
+    {
+      src: 'https://images.unsplash.com/photo-1591152582028-58e8c61e205c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
+      type: EnumMessageType.IMAGE,
+    },
+    {
+      src: 'https://ghiencongnghe.info/wp-content/uploads/2021/02/1581591620013_WhoppingBlackLemur-size_restricted.gif',
+      type: EnumMessageType.GIF,
+    },
+    {
+      src: 'https://media4.giphy.com/media/BM1PsCGwKwximEunRg/giphy.mp4',
+      type: EnumMessageType.MP4,
+    },
+  ];
   return (
     <div
       ref={messageCardRef}
-      className='w-[340px] h-[450px] rounded-t-lg shadow-2xl bg-white z-50 flex flex-col rounded-lg'
+      className='w-[340px] h-[450px] shadow-2xl bg-white z-50 flex flex-col rounded-t-lg'
     >
       <div
         ref={headerRef}
-        className='flex w-full h-[50px] z-50 shadow-md bg-white'
+        className='flex w-full h-[50px] z-50 shadow-md bg-white rounded-t-lg'
       >
-        <Dropdown drop={'start'}>
-          <Dropdown.Toggle
-            bsPrefix='flex gap-x-2 hover:bg-gray-200 cursor-pointer rounded-t-xl px-2'
-            as='div'
-          >
-            <img
-              src={friend.imgUrl}
-              alt=''
-              className='h-10 w-10 rounded-full'
-            />
-            <div>
-              <span>{friend.name}</span>
+        <Dropdown
+          color='alternative'
+          size='sm'
+          arrowIcon={false}
+          inline={true}
+          label={
+            <div className='relative flex gap-x-2 hover:bg-gray-200 cursor-pointer rounded-tl-lg py-1 px-2'>
+              <img
+                className='w-10 h-10 rounded-full ring-2 ring-gray-300'
+                src={friend.imgUrl}
+                alt=''
+              />
               {friend.isOnline ? (
-                <div className='flex items-center gap-x-1'>
-                  <div className='w-2 h-2 rounded-full bg-green-400'></div>
-                  Online
-                </div>
+                <span className='absolute bottom-3 left-9 transform translate-y-1/4 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full'></span>
               ) : (
-                <span className='text-sm font-light text-gray-400 italic block'>
-                  {away(friend.lastOnline.toLocaleString(), locale)}
-                </span>
+                <span className='absolute bottom-3 left-9 transform translate-y-1/4 w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full'></span>
               )}
+              <div className='space-y-1 font-medium dark:text-white'>
+                <div className='text-left'>{friend.name}</div>
+                {friend.isOnline ? (
+                  <div className='text-sm text-gray-500 dark:text-gray-400'>
+                    Online
+                  </div>
+                ) : (
+                  <div className='text-sm text-gray-500 dark:text-gray-400'>
+                    {away(friend.lastOnline.toLocaleString(), locale)}
+                  </div>
+                )}
+              </div>
             </div>
-          </Dropdown.Toggle>
-          <Dropdown.Menu bsPrefix='dropdown-menu rounded-lg mr-2 shadow-2xl border'>
-            <Dropdown.Item as='div' eventKey='1'>
-              <Link to={`/messages/${conversation._id}`}>
-                Open in Messenger
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Item eventKey='2'>Another action</Dropdown.Item>
-            <Dropdown.Item eventKey='3'>Something else here</Dropdown.Item>
-          </Dropdown.Menu>
+          }
+          placement='left'
+        >
+          <Dropdown.Item>
+            <Link to={`/messages/${conversation._id}`}>Open in Messenger</Link>
+          </Dropdown.Item>
         </Dropdown>
-
         <div className='ml-auto mr-2 flex items-center'>
           <button
             onClick={toggleMinimize}
@@ -189,12 +215,21 @@ export default function MessageCard({ conversation }: Props) {
         <MessageList className='' messageList={messages[conversation._id]} />
       </div>
       <div ref={inputBoxRef} className='px-2 border-t flex flex-col'>
+        <div className='p-2 flex items-center gap-x-2'>
+          <Slider {...sliderSettings(2, array.length, false)}>
+            {array.map((file, index) => (
+              <PreviewFile key={index} type={file.type} src={file.src} />
+            ))}
+          </Slider>
+        </div>
         <div className='flex h-[40px] items-center gap-x-2 mt-auto mb-2'>
           <div
             ref={fileRef}
-            className={`w-[${wFileRef}%] text-primary flex gap-x-3`}
+            className={`min-w-[${wFileRef}] text-primary flex gap-x-3`}
           >
-            <FileChoosen ref={(imgRef = { fileRef })} />
+            {FileChoosen.map((fileChoosen, index) => (
+              <Input key={index} {...fileChoosen} />
+            ))}
           </div>
           <InputCard
             onAddEmoji={handleAddEmoji}

@@ -1,3 +1,4 @@
+import { EnumMessageType } from ".";
 
 export default interface IMessage {
     _id: string;
@@ -5,5 +6,5 @@ export default interface IMessage {
     createAt: string | Date;
     senderId: string;
     conversationId: string;
-    type: "text" | "image" | "audio" | "video";
+    type: EnumMessageType;
 }

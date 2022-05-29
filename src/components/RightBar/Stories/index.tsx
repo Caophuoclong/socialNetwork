@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import Story from './Story';
 import { VscTriangleLeft, VscTriangleRight } from 'react-icons/vsc';
+import { sliderSettings } from '~/constants';
 
 type Props = {};
 
@@ -66,27 +67,7 @@ export default function Stories({}: Props) {
   ];
   const ref = useRef<Slider>(null);
   const slideToShowAndScroll = 3;
-  const settings = {
-    className: 'w-full text-black',
-    infinite: false,
-    speed: 500,
-    slidesToShow: slideToShowAndScroll,
-    slidesToScroll: slideToShowAndScroll,
-    afterChange: (x: any) => {
-      if (x === 0) {
-        const prevElement = document.querySelector('.slick-prev');
-        prevElement?.classList.add('invisible');
-      }
-      if (x === array.length - slideToShowAndScroll) {
-        const nextElement = document.querySelector('.slick-next');
-        nextElement?.classList.add('invisible');
-      }
-    },
-    onInit: () => {
-      const prevElement = document.querySelector('.slick-prev');
-      prevElement?.classList.add('invisible');
-    },
-  };
+
   return (
     <div className='flex gap-x-4 w-full'>
       <Story
@@ -95,7 +76,7 @@ export default function Stories({}: Props) {
         className='relative after:absolute after:content-["+"] after:w-4 after:h-4 after:flex after:justify-center after:items-center after:rounded-full after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:font-semibold  after:bg-[#E8E9EB]'
       />
       <div className='w-[60%] flex flex-1 justify-center'>
-        <Slider ref={ref} {...settings}>
+        <Slider ref={ref} {...sliderSettings(3, array.length)}>
           {array.map((story, index) => (
             <Story key={index} imgUrl={story.imgUrl} name={story.name} />
           ))}
