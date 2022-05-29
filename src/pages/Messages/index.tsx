@@ -15,7 +15,7 @@ export default function Messages({}: Props) {
   const id = params.id;
 
   return (
-    <div>
+    <div className='relative min-h-full  rounded-xl p-2 bg-transparent'>
       Messages
       {id}
     </div>

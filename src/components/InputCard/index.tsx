@@ -22,7 +22,7 @@ export default function InputCard({
     setShowEmojiPicker(!showEmojiPicker);
   };
   return (
-    <div className='flex-1 bg-gray-200 rounded-full mt-auto flex pr-2'>
+    <div className='flex-1 bg-gray-200 rounded-full mt-auto flex pr-2 dark:bg-darkPrimary'>
       <input
         type='text'
         onChange={onChange}

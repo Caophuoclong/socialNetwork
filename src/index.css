@@ -33,12 +33,20 @@ input[type='text']:focus{
   z-index: 50;
 }
 .slick-prev{
+  color: white !important;
+
+  background-color: #212833 !important;
   left: -5%;
 }
 .slick-next{
+  background-color: #212833 !important;
+    color: white !important;
   right: -5%;
 }
-.slick-prev:before,
-.slick-next:before {
-    color:black; 
+.slick-prev:before, .slick-next:before{
+  content: ""
+}
+.slick-prev:hover, .slick-next:hover{
+  background-color: #212833 !important;
+  color: white !important;
 }

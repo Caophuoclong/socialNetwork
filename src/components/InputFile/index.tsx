@@ -6,7 +6,7 @@ type RefType = HTMLLabelElement;
 const Input = forwardRef<RefType, IFileChoosen>(
   ({ label, Icon, accept }, ref) => {
     return (
-      <label ref={ref} htmlFor={label}>
+      <label ref={ref} htmlFor={label} className='cursor-pointer'>
         <Icon size='24px' />
         <input type='file' id={label} name={label} hidden accept={accept} />
       </label>

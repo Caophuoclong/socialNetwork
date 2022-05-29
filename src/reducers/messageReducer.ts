@@ -20,13 +20,22 @@ const initialState: Interface = {
         ],
         "4": [
             {
+                _id: "me2",
+                conversationId: "4",
+                createAt: new Date(1652658341000).toISOString(),
+                senderId: "0",
+                text: "Xin chao",
+                type: EnumMessageType.TEXT,
+            },
+            {
                 _id: "me",
                 conversationId: "4",
                 createAt: new Date(1653659441000).toISOString(),
                 senderId: "f2",
                 text: "Xin chao",
                 type: EnumMessageType.TEXT,
-            }
+            },
+
         ]
     },
 }

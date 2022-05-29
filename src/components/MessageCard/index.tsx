@@ -16,7 +16,7 @@ import { addMessages } from '~/reducers/messageReducer';
 import { away } from '../MessageList/chatLogic';
 import { FiMaximize2 } from 'react-icons/fi';
 import { FileChoosen, sliderSettings } from '~/constants';
-import Input from '../Input';
+import InputFile from '../InputFile';
 import { Avatar, Dropdown } from 'flowbite-react';
 import PreviewFile from '../PreviewFile';
 import Slider from 'react-slick';
@@ -120,14 +120,16 @@ export default function MessageCard({ conversation }: Props) {
       if (isMinimize) {
         messageListRef.current.classList.add('hidden');
         inputBoxRef.current.classList.add('hidden');
+        messageCardRef.current.classList.add('dark:bg-transparent');
         messageCardRef.current.classList.add('bg-transparent');
-        messageCardRef.current.classList.add('shadow-none');
+        messageCardRef.current.classList.remove('shadow-2xl');
         headerRef.current.classList.add('mt-auto');
       } else {
         messageListRef.current.classList.remove('hidden');
         inputBoxRef.current.classList.remove('hidden');
+        messageCardRef.current.classList.remove('dark:bg-transparent');
         messageCardRef.current.classList.remove('bg-transparent');
-        messageCardRef.current.classList.remove('shadow-none');
+        messageCardRef.current.classList.add('shadow-2xl');
         headerRef.current.classList.remove('mt-auto');
       }
     }
@@ -149,11 +151,11 @@ export default function MessageCard({ conversation }: Props) {
   return (
     <div
       ref={messageCardRef}
-      className='w-[340px] h-[450px] shadow-2xl bg-white z-50 flex flex-col rounded-t-lg'
+      className='w-[340px] h-[470px] shadow-2xl dark:bg-darkSecondary bg-white z-50 flex flex-col rounded-t-lg'
     >
       <div
         ref={headerRef}
-        className='flex w-full h-[50px] z-50 shadow-md bg-white rounded-t-lg'
+        className='flex w-full h-[50px] z-50 shadow-md dark:bg-darkSecondary bg-white rounded-t-lg'
       >
         <Dropdown
           color='alternative'
@@ -161,21 +163,26 @@ export default function MessageCard({ conversation }: Props) {
           arrowIcon={false}
           inline={true}
           label={
-            <div className='relative flex gap-x-2 hover:bg-gray-200 cursor-pointer rounded-tl-lg py-1 px-2'>
-              <img
-                className='w-10 h-10 rounded-full ring-2 ring-gray-300'
-                src={friend.imgUrl}
-                alt=''
-              />
-              {friend.isOnline ? (
-                <span className='absolute bottom-3 left-9 transform translate-y-1/4 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full'></span>
-              ) : (
-                <span className='absolute bottom-3 left-9 transform translate-y-1/4 w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full'></span>
-              )}
-              <div className='space-y-1 font-medium dark:text-white'>
-                <div className='text-left'>{friend.name}</div>
+            <div className='relative flex gap-x-4 hover:bg-secondary cursor-pointer rounded-tl-lg text-secondary hover:text-white items-center px-2'>
+              <div className='relative'>
+                <div className='w-10 h-10 rounded-full ring-2 ring-gray-300 flex items-center justify-center'>
+                  <img
+                    className='w-9 h-9 rounded-full'
+                    src={friend.imgUrl}
+                    alt=''
+                  />
+                </div>
                 {friend.isOnline ? (
-                  <div className='text-sm text-gray-500 dark:text-gray-400'>
+                  <span className='absolute bottom-[2px] left-7 transform translate-y-1/4 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full'></span>
+                ) : (
+                  <span className='absolute bottom-[2px] left-7 transform translate-y-1/4 w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full'></span>
+                )}
+              </div>
+
+              <div className='space-y-px font-medium text-left'>
+                <div className='text-left dark:text-white'>{friend.name}</div>
+                {friend.isOnline ? (
+                  <div className='text-sm text-gray-500 dark:text-gray-300'>
                     Online
                   </div>
                 ) : (
@@ -214,11 +221,22 @@ export default function MessageCard({ conversation }: Props) {
       <div ref={messageListRef} className='max-h-[360px] min-h-[240px] h-full'>
         <MessageList className='' messageList={messages[conversation._id]} />
       </div>
-      <div ref={inputBoxRef} className='px-2 border-t flex flex-col'>
-        <div className='p-2 flex items-center gap-x-2'>
-          <Slider {...sliderSettings(2, array.length, false)}>
+      <div
+        ref={inputBoxRef}
+        className='px-2 border-t-2 dark:border-darkPrimary flex flex-col '
+      >
+        <div className='flex items-center gap-x-2 h-[110px]'>
+          <Slider
+            {...sliderSettings(2, array.length, false)}
+            className='w-full text-black h-full'
+          >
             {array.map((file, index) => (
-              <PreviewFile key={index} type={file.type} src={file.src} />
+              <PreviewFile
+                key={index}
+                type={file.type}
+                src={file.src}
+                className='w-[90%] h-[90px] cursor-grab rounded-lg ring-2 dark:ring-darkPrimary ring-white items-center flex justify-center my-2'
+              />
             ))}
           </Slider>
         </div>
@@ -228,7 +246,7 @@ export default function MessageCard({ conversation }: Props) {
             className={`min-w-[${wFileRef}] text-primary flex gap-x-3`}
           >
             {FileChoosen.map((fileChoosen, index) => (
-              <Input key={index} {...fileChoosen} />
+              <InputFile key={index} {...fileChoosen} />
             ))}
           </div>
           <InputCard

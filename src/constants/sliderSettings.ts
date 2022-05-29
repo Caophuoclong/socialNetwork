@@ -1,8 +1,7 @@
 function sliderSettings(slideToShowAndScroll: number, length: number, showArrow: boolean = true) {
     return {
-        className: 'w-full text-black',
+        className: 'w-full text-black h-full py-2 relative',
         infinite: false,
-        speed: 500,
         arrows: showArrow,
         slidesToShow: slideToShowAndScroll,
         slidesToScroll: slideToShowAndScroll,

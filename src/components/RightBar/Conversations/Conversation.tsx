@@ -31,11 +31,13 @@ export default function Conversation({ conversation }: Props) {
   const locale = useAppSelector((state) => state.globalSlice.locale);
   return (
     <div
-      className='flex gap-x-2 items-center cursor-pointer hover:bg-gray-300 rounded-lg p-1'
+      className='group flex gap-x-2 items-center cursor-pointer hover:bg-secondary rounded-lg p-1 hover:text-white dark:text-white text-secondary'
       onClick={handleAddChoosenConversation}
     >
       <img src={friend.imgUrl} alt='' className='w-10 h-10 rounded-full ' />
-      <span className='text-[#52617b] font-semibold'>{friend.name}</span>
+      <span className='text-[#52617b] font-semibold dark:text-white group-hover:text-white'>
+        {friend.name}
+      </span>
       <div className='ml-auto mr-2'>
         {friend.isOnline ? (
           <div className='w-2 h-2 rounded-full bg-green-400'></div>

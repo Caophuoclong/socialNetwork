@@ -71,7 +71,7 @@ export default function LeftBar({ className }: Props) {
           <Link
             to={item.link}
             key={index}
-            className='flex items-center gap-x-2 font-medium p-2 rounded-md hover:bg-[#4e5d78] hover:text-white text-[#4e5d78] cursor-pointer'
+            className='flex items-center gap-x-2 font-medium p-2 rounded-md hover:bg-[#4e5d78] hover:text-white text-[#4e5d78] cursor-pointer dark:text-white'
           >
             <Icon size='24px' />
             <span className=''>{item.title}</span>

@@ -4,27 +4,18 @@ import { IoResizeSharp } from 'react-icons/io5';
 import { EnumMessageType } from '~/interfaces';
 
 type Props = {
-  width?: number;
-  height?: number;
+  className?: string;
   type: EnumMessageType;
   src?: string;
   children?: React.ReactNode;
 };
 
-export default function PreviewFile({
-  width = 140,
-  height = 80,
-  src,
-  type,
-}: Props) {
-  console.log(width);
+export default function PreviewFile({ className, src, type }: Props) {
   const MediaType = () => {
     if (type === EnumMessageType.MP4) {
-      console.log(src);
       return (
         <video
-          width={width}
-          className={`h-[${height}px] cursor-grab rounded-lg`}
+          className={`w-[90%] h-[90%] rounded-lg`}
           autoPlay={true}
           controls
           src={src}
@@ -32,18 +23,11 @@ export default function PreviewFile({
       );
     }
     if (type === EnumMessageType.IMAGE || type === EnumMessageType.GIF)
-      return (
-        <img
-          src={src}
-          alt=''
-          width={`${width}`}
-          className={`w-[${width}px] h-[${height}px] cursor-grab rounded-lg`}
-        />
-      );
+      return <img src={src} alt='' className={`w-[90%] h-[90%]  rounded-lg`} />;
   };
   return (
-    <div className='relative group'>
-      {MediaType()}
+    <div className='relative group flex justify-center items-center'>
+      <div className={className}>{MediaType()}</div>
       <button className='absolute top-0 right-2 bg-white rounded-full border invisible  group-hover:visible duration-300 opacity-50'>
         <FaTimes size='20px' />
       </button>

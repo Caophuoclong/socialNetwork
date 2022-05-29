@@ -12,9 +12,11 @@ export default function Story({ imgUrl, name, className }: Props) {
       <img
         src={imgUrl}
         alt=''
-        className='my-2 w-12 h-12 rounded-full border-[#5f97ff] border-2'
+        className='my-2 w-12 h-12 rounded-full ring-2 ring-primary border-2'
       />
-      <span>{name.split(' ')[name.split(' ').length - 1]}</span>
+      <span className='dark:text-white'>
+        {name.split(' ')[name.split(' ').length - 1]}
+      </span>
     </div>
   );
 }
