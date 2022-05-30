@@ -26,7 +26,7 @@ export default function MessageList({ messageList, className }: Props) {
     messageListRef.current &&
       messageListRef.current.scrollTo({
         top: messageListRef.current.scrollHeight,
-        behavior: 'smooth',
+        // behavior: 'smooth',
       });
   };
   useEffect(() => {

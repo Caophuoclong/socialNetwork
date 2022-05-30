@@ -5,7 +5,10 @@ import { TiTimes } from 'react-icons/ti';
 import { IoAddCircle, IoImage } from 'react-icons/io5';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { EnumMessageType, IConversation, IMessage } from '../../interfaces';
-import { removeChoosenConversation } from '../../reducers/globalReducer';
+import {
+  addMinimizeConversation,
+  removeChoosenConversation,
+} from '../../reducers/globalReducer';
 import { FaRegHeart } from 'react-icons/fa';
 import InputCard from '../InputCard';
 import { RiFileGifFill } from 'react-icons/ri';
@@ -45,7 +48,7 @@ export default function MessageCard({ conversation }: Props) {
   const wFileRef = '350px';
   const dispatch = useAppDispatch();
 
-  const [isMinimize, setIsMinimized] = useState(false);
+  // const [isMinimize, setIsMinimized] = useState(false);
   const [fileChoosen, setFileChoosen] = useState<Blob>();
   const other = conversation.participants.filter(
     (participant) => participant._id !== user._id
@@ -55,9 +58,7 @@ export default function MessageCard({ conversation }: Props) {
   const handleRemoveChoosenConversation = () => {
     dispatch(removeChoosenConversation(conversation));
   };
-  const toggleMinimize = () => {
-    setIsMinimized(!isMinimize);
-  };
+
   const [text, setText] = useState('');
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
@@ -110,30 +111,32 @@ export default function MessageCard({ conversation }: Props) {
     }
   }, [dropdownRef]);
 
-  useEffect(() => {
-    if (
-      messageCardRef.current &&
-      messageListRef.current &&
-      inputBoxRef.current &&
-      headerRef.current
-    ) {
-      if (isMinimize) {
-        messageListRef.current.classList.add('hidden');
-        inputBoxRef.current.classList.add('hidden');
-        messageCardRef.current.classList.add('dark:bg-transparent');
-        messageCardRef.current.classList.add('bg-transparent');
-        messageCardRef.current.classList.remove('shadow-2xl');
-        headerRef.current.classList.add('mt-auto');
-      } else {
-        messageListRef.current.classList.remove('hidden');
-        inputBoxRef.current.classList.remove('hidden');
-        messageCardRef.current.classList.remove('dark:bg-transparent');
-        messageCardRef.current.classList.remove('bg-transparent');
-        messageCardRef.current.classList.add('shadow-2xl');
-        headerRef.current.classList.remove('mt-auto');
-      }
-    }
-  }, [isMinimize]);
+  // useEffect(() => {
+  //   if (
+  //     messageCardRef.current &&
+  //     messageListRef.current &&
+  //     inputBoxRef.current &&
+  //     headerRef.current
+  //   ) {
+  //     if (isMinimize) {
+  //       messageListRef.current.classList.add('hidden');
+  //       inputBoxRef.current.classList.add('hidden');
+  //       messageCardRef.current.classList.add('dark:bg-transparent');
+  //       messageCardRef.current.classList.add('bg-transparent');
+  //       messageCardRef.current.classList.remove('bg-white');
+  //       messageCardRef.current.classList.remove('shadow-2xl');
+  //       headerRef.current.classList.add('mt-auto');
+  //     } else {
+  //       messageListRef.current.classList.remove('hidden');
+  //       inputBoxRef.current.classList.remove('hidden');
+  //       messageCardRef.current.classList.remove('dark:bg-transparent');
+  //       messageCardRef.current.classList.add('bg-white');
+  //       messageCardRef.current.classList.remove('bg-transparent');
+  //       messageCardRef.current.classList.add('shadow-2xl');
+  //       headerRef.current.classList.remove('mt-auto');
+  //     }
+  //   }
+  // }, [isMinimize]);
   const array = [
     {
       src: 'https://images.unsplash.com/photo-1591152582028-58e8c61e205c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
@@ -201,10 +204,12 @@ export default function MessageCard({ conversation }: Props) {
         </Dropdown>
         <div className='ml-auto mr-2 flex items-center'>
           <button
-            onClick={toggleMinimize}
+            onClick={() => {
+              dispatch(addMinimizeConversation(conversation));
+            }}
             className='w-6 h-6 text-primary rounded-full hover:bg-gray-300 flex items-center justify-center'
           >
-            {!isMinimize ? (
+            {!false ? (
               <HiOutlineMinus size='24px' />
             ) : (
               <FiMaximize2 size='16px' />

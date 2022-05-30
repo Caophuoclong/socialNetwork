@@ -9,10 +9,7 @@ export default interface IConversation {
     adminstations?: Array<IUser>
     type: "private" | "group";
     imgUrl?: string;
-    latestMessage?: {
-        // Key is senderId
-        [key: string]: IMessage
-    };
+    latestMessage?: IMessage;
     unReadMessages?: {
         // Key is senderId
         [key: string]: IMessage[]

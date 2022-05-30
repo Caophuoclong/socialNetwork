@@ -1,4 +1,5 @@
 import React from 'react';
+import MinimizeConversations from '~/components/MinimizeConversations';
 import { useAppSelector } from '../../app/hooks';
 import MessageCard from '../../components/MessageCard';
 import { IConversation } from '../../interfaces';
@@ -9,7 +10,10 @@ export default function HomePage({}: Props) {
   const choosenConversations = useAppSelector(
     (state) => state.globalSlice.choosendConversation
   );
-
+  const minimizeConversation = useAppSelector(
+    (state) => state.globalSlice.minimizeConversation
+  );
+  console.log(minimizeConversation);
   return (
     <div className='relative min-h-full  rounded-xl p-2 bg-transparent'>
       <div className='dark:bg-darkPrimary'>homepage</div>
@@ -21,6 +25,7 @@ export default function HomePage({}: Props) {
             return <MessageCard conversation={conversation} key={index} />;
           })}
       </div>
+      {minimizeConversation.length > 0 && <MinimizeConversations />}
     </div>
   );
 }

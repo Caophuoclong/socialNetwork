@@ -9,8 +9,6 @@ function dateToSomeThing(someDate: string | Date, locale: "en" | "vi") {
     if (moment().diff(date, 'days') >= 2) {
         return date.fromNow(); // '2 days ago' etc.
     }
-    console.log(date.calendar());
-    console.log(moment.locale());
     if (locale === "en")
         return date.calendar().split(' ')[0];
     const xxx = date.calendar().split(' ');
@@ -24,8 +22,8 @@ function away(someDate: string | Date, locale: "en" | "vi") {
     if (moment().diff(date, 'days') >= 2) {
         return date.fromNow(); // '2 days ago' etc.
     }
-    console.log(date.calendar());
-    console.log(moment.locale());
+
+
     if (locale === "en")
         return date.calendar().split(' ')[0];
     const xxx = date.calendar().split(' ');

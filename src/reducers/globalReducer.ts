@@ -2,9 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IConversation } from "../interfaces";
 interface IGlobalSilce {
     choosendConversation: IConversation[];
+    minimizeConversation: IConversation[];
     locale: "en" | "vi";
 }
 const initialState: IGlobalSilce = {
+    minimizeConversation: [],
     choosendConversation: [
         {
             imgUrl: 'https://picsum.photos/40',
@@ -25,13 +27,20 @@ const globalSlice = createSlice({
     initialState,
     reducers: {
         addChoosenConversation: (state: IGlobalSilce, action: PayloadAction<IConversation>) => {
-            // let isExist = false;
-            // const xxx = state.choosendConversation;
             if (state.choosendConversation.length === 3) {
-                state.choosendConversation.splice(-1, 1);
+                state.minimizeConversation.push(state.choosendConversation[0]);
+                state.choosendConversation.splice(0, 1);
                 state.choosendConversation.push(action.payload);
             } else {
                 state.choosendConversation.push(action.payload);
+            }
+
+        },
+        addMinimizeConversation: (state: IGlobalSilce, action: PayloadAction<IConversation>) => {
+            return {
+                ...state,
+                choosendConversation: state.choosendConversation.filter((conversation) => conversation._id !== action.payload._id),
+                minimizeConversation: ([] as IConversation[]).concat(action.payload, state.minimizeConversation.filter((conversation) => conversation._id !== action.payload._id))
             }
         },
         removeChoosenConversation: (state: IGlobalSilce, action: PayloadAction<IConversation>) => {
@@ -40,6 +49,13 @@ const globalSlice = createSlice({
                 choosendConversation: state.choosendConversation.filter((conversation) => conversation._id !== action.payload._id)
             }
         },
+        removeMinimizeConversation: (state: IGlobalSilce, action: PayloadAction<IConversation>) => {
+            return {
+                ...state,
+                minimizeConversation: state.minimizeConversation.filter((conversation) => conversation._id !== action.payload._id),
+            }
+        },
+
         setEmptyChoosenConversations: (state: IGlobalSilce) => {
             return {
                 ...state,
@@ -57,4 +73,4 @@ const globalSlice = createSlice({
 })
 
 export default globalSlice.reducer;
-export const { addChoosenConversation, removeChoosenConversation, setEmptyChoosenConversations, setLocale } = globalSlice.actions;
+export const { addChoosenConversation, removeChoosenConversation, setEmptyChoosenConversations, addMinimizeConversation, removeMinimizeConversation, setLocale } = globalSlice.actions;

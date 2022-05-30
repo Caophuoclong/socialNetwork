@@ -1,7 +1,10 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { IConversation } from '../../../interfaces';
-import { addChoosenConversation } from '../../../reducers/globalReducer';
+import {
+  addChoosenConversation,
+  removeMinimizeConversation,
+} from '../../../reducers/globalReducer';
 import { away } from '../../MessageList/chatLogic';
 
 type Props = {
@@ -12,6 +15,9 @@ export default function Conversation({ conversation }: Props) {
   const choosendConversations = useAppSelector(
     (state) => state.globalSlice.choosendConversation
   );
+  const minimzeConversations = useAppSelector(
+    (state) => state.globalSlice.minimizeConversation
+  );
   const user = useAppSelector((state) => state.userSlice);
   const friends = useAppSelector((state) => state.friendSlice.friends);
   const other = conversation.participants.filter(
@@ -21,11 +27,16 @@ export default function Conversation({ conversation }: Props) {
   const dispatch = useAppDispatch();
   const handleAddChoosenConversation = () => {
     let isExist = false;
+    let isMinimize = false;
     choosendConversations.map((conv) => {
       if (conv._id === conversation._id) {
         isExist = true;
       }
     });
+    minimzeConversations.map((con) => {
+      if (con._id === conversation._id) isMinimize = true;
+    });
+    isMinimize && dispatch(removeMinimizeConversation(conversation));
     !isExist && dispatch(addChoosenConversation(conversation));
   };
   const locale = useAppSelector((state) => state.globalSlice.locale);
