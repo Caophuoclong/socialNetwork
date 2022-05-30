@@ -31,13 +31,11 @@ export default function Conversation({ conversation }: Props) {
     <div className='relative group cursor-pointer'>
       <Tooltip
         animation='duration-100'
-        style='auto'
+        className='dark:bg-darkSecondary dark:text-white'
         placement='left'
         content={
           <div className='px-2'>
-            <div className='dark:text-white dark:bg-darkPrimary font-semibold'>
-              {friend.name}
-            </div>
+            <div className=' font-semibold'>{friend.name}</div>
             <div>hi</div>
           </div>
         }

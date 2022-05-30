@@ -13,7 +13,6 @@ export default function HomePage({}: Props) {
   const minimizeConversation = useAppSelector(
     (state) => state.globalSlice.minimizeConversation
   );
-  console.log(minimizeConversation);
   return (
     <div className='relative min-h-full  rounded-xl p-2 bg-transparent'>
       <div className='dark:bg-darkPrimary'>homepage</div>

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
-import { HiOutlineMinus } from 'react-icons/hi';
+import { HiOutlineMinus, HiX } from 'react-icons/hi';
 import { TiTimes } from 'react-icons/ti';
 import { IoAddCircle, IoImage } from 'react-icons/io5';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -11,7 +11,6 @@ import {
 } from '../../reducers/globalReducer';
 import { FaRegHeart } from 'react-icons/fa';
 import InputCard from '../InputCard';
-import { RiFileGifFill } from 'react-icons/ri';
 import { HiOutlinePaperAirplane } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import MessageList from '../MessageList';
@@ -20,9 +19,10 @@ import { away } from '../MessageList/chatLogic';
 import { FiMaximize2 } from 'react-icons/fi';
 import { FileChoosen, sliderSettings } from '~/constants';
 import InputFile from '../InputFile';
-import { Avatar, Dropdown } from 'flowbite-react';
+import { Dropdown, Toast } from 'flowbite-react';
 import PreviewFile from '../PreviewFile';
 import Slider from 'react-slick';
+import readFileAsUrl from '~/utils/readFile';
 type Props = {
   conversation: IConversation;
 };
@@ -44,12 +44,13 @@ export default function MessageCard({ conversation }: Props) {
   const refFileChoosen = [allFileRef, imgRef, gifRef];
   FileChoosen.forEach((file, index) => (file.ref = refFileChoosen[index]));
   const headerRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const wFileRef = '350px';
   const dispatch = useAppDispatch();
 
   // const [isMinimize, setIsMinimized] = useState(false);
-  const [fileChoosen, setFileChoosen] = useState<Blob>();
+  const [fileChoosens, setFileChoosens] = useState<File[]>([]);
   const other = conversation.participants.filter(
     (participant) => participant._id !== user._id
   )[0];
@@ -151,6 +152,33 @@ export default function MessageCard({ conversation }: Props) {
       type: EnumMessageType.MP4,
     },
   ];
+  const handleUploadFile = (files: FileList | null) => {
+    let fileList = [...(fileChoosens || []), ...Array.from(files || [])];
+    const x = fileList.filter((f, i, a) => {
+      if (i === a.findIndex((t) => t.name === f.name && t.size === f.size)) {
+        return true;
+      }
+    });
+
+    setFileChoosens(x);
+  };
+  // useEffect(() => {
+  //   const slider = sliderRef.current;
+  //   if (slider) {
+  //     if (fileChoosens.length < 2) {
+  //       slider.classList.remove('justify-center');
+  //       slider.classList.add('justify-start');
+  //     } else {
+  //       slider.classList.remove('justify-start');
+  //       slider.classList.add('justify-center');
+  //     }
+  //   }
+  // }, [fileChoosens]);
+  const handleRemoveFile = (file: File) => {
+    setFileChoosens(
+      ([] as File[]).concat(fileChoosens.filter((f) => f.name !== file.name))
+    );
+  };
   return (
     <div
       ref={messageCardRef}
@@ -228,19 +256,22 @@ export default function MessageCard({ conversation }: Props) {
       </div>
       <div
         ref={inputBoxRef}
-        className='px-2 border-t-2 dark:border-darkPrimary flex flex-col '
+        className='px-2 border-t-2 dark:border-darkPrimary flex flex-col pt-1 mt-auto'
       >
-        <div className='flex items-center gap-x-2 h-[110px]'>
+        <div
+          ref={sliderRef}
+          className='flex items-center gap-x-2 max-h-[110px] mt-auto'
+        >
           <Slider
             {...sliderSettings(2, array.length, false)}
-            className='w-full text-black h-full'
+            className='w-full text-black h-full '
           >
-            {array.map((file, index) => (
+            {(fileChoosens || []).map((file, index) => (
               <PreviewFile
                 key={index}
-                type={file.type}
-                src={file.src}
-                className='w-[90%] h-[90px] cursor-grab rounded-lg ring-2 dark:ring-darkPrimary ring-white items-center flex justify-center my-2'
+                file={file}
+                onRemoveFile={handleRemoveFile}
+                className='w-[90%] h-[90px] '
               />
             ))}
           </Slider>
@@ -251,7 +282,11 @@ export default function MessageCard({ conversation }: Props) {
             className={`min-w-[${wFileRef}] text-primary flex gap-x-3`}
           >
             {FileChoosen.map((fileChoosen, index) => (
-              <InputFile key={index} {...fileChoosen} />
+              <InputFile
+                key={index}
+                {...fileChoosen}
+                onChange={handleUploadFile}
+              />
             ))}
           </div>
           <InputCard
@@ -261,12 +296,12 @@ export default function MessageCard({ conversation }: Props) {
             onKeyPress={handleEnterPress}
           />
           <div className='w-[10%] text-primary'>
-            {text.length === 0 ? (
-              <FaRegHeart size='24px' />
-            ) : (
+            {text.length > 0 || fileChoosens.length > 0 ? (
               <button className='rotate-[45deg]'>
                 <HiOutlinePaperAirplane size='24px' />
               </button>
+            ) : (
+              <FaRegHeart size='24px' />
             )}
           </div>
         </div>
