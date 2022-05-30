@@ -22,7 +22,7 @@ import InputFile from '../InputFile';
 import { Dropdown, Toast } from 'flowbite-react';
 import PreviewFile from '../PreviewFile';
 import Slider from 'react-slick';
-import readFileAsUrl from '~/utils/readFile';
+
 type Props = {
   conversation: IConversation;
 };
@@ -138,22 +138,12 @@ export default function MessageCard({ conversation }: Props) {
   //     }
   //   }
   // }, [isMinimize]);
-  const array = [
-    {
-      src: 'https://images.unsplash.com/photo-1591152582028-58e8c61e205c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
-      type: EnumMessageType.IMAGE,
-    },
-    {
-      src: 'https://ghiencongnghe.info/wp-content/uploads/2021/02/1581591620013_WhoppingBlackLemur-size_restricted.gif',
-      type: EnumMessageType.GIF,
-    },
-    {
-      src: 'https://media4.giphy.com/media/BM1PsCGwKwximEunRg/giphy.mp4',
-      type: EnumMessageType.MP4,
-    },
-  ];
+
   const handleUploadFile = (files: FileList | null) => {
-    let fileList = [...(fileChoosens || []), ...Array.from(files || [])];
+    let fileList: File[] = [
+      ...(fileChoosens || []),
+      ...Array.from(files || []),
+    ];
     const x = fileList.filter((f, i, a) => {
       if (i === a.findIndex((t) => t.name === f.name && t.size === f.size)) {
         return true;
@@ -176,13 +166,17 @@ export default function MessageCard({ conversation }: Props) {
   // }, [fileChoosens]);
   const handleRemoveFile = (file: File) => {
     setFileChoosens(
-      ([] as File[]).concat(fileChoosens.filter((f) => f.name !== file.name))
+      ([] as File[]).concat(
+        ...fileChoosens.filter(
+          (f) => f.name !== file.name && f.lastModified === f.lastModified
+        )
+      )
     );
   };
   return (
     <div
       ref={messageCardRef}
-      className='w-[340px] h-[470px] shadow-2xl dark:bg-darkSecondary bg-white z-50 flex flex-col rounded-t-lg'
+      className='w-[340px] h-[470px] shadow-2xl dark:bg-darkSecondary bg-white z-50 flex flex-col rounded-t-lg z-50'
     >
       <div
         ref={headerRef}
@@ -263,7 +257,7 @@ export default function MessageCard({ conversation }: Props) {
           className='flex items-center gap-x-2 max-h-[110px] mt-auto'
         >
           <Slider
-            {...sliderSettings(2, array.length, false)}
+            {...sliderSettings(2, fileChoosens.length, false)}
             className='w-full text-black h-full '
           >
             {(fileChoosens || []).map((file, index) => (

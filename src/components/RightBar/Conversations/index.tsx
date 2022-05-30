@@ -11,14 +11,14 @@ export default function Conversations({}: Props) {
   );
   console.log(conversations);
   return (
-    <div className='h-[90%] flex flex-col'>
+    <div className='h-[85%] flex flex-col z-0'>
       <div className='font-semibold italic border-b flex'>
         <span>Friends</span>
         <button className='ml-auto mr-2'>
           <IoIosMore size='24px' />
         </button>
       </div>
-      <div className='py-2 overflow-y-auto flex-1'>
+      <div className='overflow-y-auto flex-1 z-0'>
         {conversations.map((conversation, index) => {
           return <Conversation conversation={conversation} key={index} />;
         })}

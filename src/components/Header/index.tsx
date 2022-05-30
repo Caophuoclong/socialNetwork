@@ -3,12 +3,14 @@ import { FiSearch } from 'react-icons/fi';
 import { useAppSelector } from '../../app/hooks';
 import { LogoPage } from '../../assets/svgs';
 
-type Props = {};
+type Props = {
+  className: string;
+};
 
-function Header({}: Props) {
+function Header({ className }: Props) {
   const user = useAppSelector((state) => state.userSlice);
   return (
-    <header className='flex items-center gap-x-2 h-[50px] bg-[#f0f2f5] dark:bg-darkPrimary mb-2'>
+    <header className={className}>
       <div className='w-[250px] flex items-center gap-2'>
         <LogoPage width={40} height={40} fill={'#42fd'} />
         <span className='font-extrabold text-xl text-primary italic'>

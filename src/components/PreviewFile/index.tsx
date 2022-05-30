@@ -34,7 +34,7 @@ export default function PreviewFile({ className, file, onRemoveFile }: Props) {
       const x = (await readFileAsUrl(file)) as string;
       setUrl(x);
     })();
-  }, []);
+  }, [file]);
   return (
     <div className='relative group flex justify-center items-center'>
       <div

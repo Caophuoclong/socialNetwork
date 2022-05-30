@@ -16,7 +16,18 @@ export default function Messages({}: Props) {
 
   return (
     <div className='relative min-h-full  rounded-xl p-2 bg-transparent'>
-      Messages
+      <div className='h-96 bg-darkPrimary'>Messages</div>
+      <div className='h-96 bg-darkPrimary'>Messages</div>
+      <div className='h-96 bg-darkPrimary'>Messages</div>
+      <div className='h-96 bg-darkPrimary'>Messages</div>
+      <div className='h-96 bg-darkPrimary'>Messages</div>
+      <div className='h-96 bg-darkPrimary'>Messages</div>
+      <div className='h-96 bg-darkPrimary'>Messages</div>
+      <div className='h-96 bg-darkPrimary'>Messages</div>
+      <div className='h-96 bg-darkPrimary'>Messages</div>
+      <div className='h-96 bg-darkPrimary'>Messages</div>
+      <div className='h-96 bg-darkPrimary'>Messages</div>
+      <div className='h-96 bg-darkPrimary'>Messages</div>
       {id}
     </div>
   );

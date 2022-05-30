@@ -8,10 +8,7 @@ type Props = {
 
 export default function RightBar({ className }: Props) {
   return (
-    <aside
-      id='rightBar'
-      className={className + ' flex flex-col p-2 h-full border-box'}
-    >
+    <aside id='rightBar' className={className + ' flex flex-col px-2 z-0'}>
       <Stories />
       <Conversations />
     </aside>

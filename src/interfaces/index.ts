@@ -7,4 +7,5 @@ export type { default as IFriend } from "./IFriend";
 export type { default as IFriendRequest } from "./IFriendRequest";
 export type { default as IFriendPending } from "./IFriendPending";
 export type { default as IFileChoosen } from "./IFileChoosen";
+export type { default as ICustomFile } from "./ICustomFile";
 export { default as EnumMessageType } from "./EnumMessageType";

@@ -50,3 +50,36 @@ input[type='text']:focus{
   background-color: #212833 !important;
   color: white !important;
 }
+::-webkit-scrollbar {
+  width: 20px;
+}
+@media (prefers-color-scheme: light) {
+
+  ::-webkit-scrollbar-track {
+    /* background-color: #191c21; */
+    background-color: #f0f2f5;
+  }
+}
+@media (prefers-color-scheme: dark) {
+
+  ::-webkit-scrollbar-track {
+    background-color: #191c21;
+    /* background-color: #fff; */
+  }
+}
+::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+.sidebar {
+  position: sticky;
+  top: 7vh;
+  height: 90vh;
+  box-sizing: border-box;
+}
