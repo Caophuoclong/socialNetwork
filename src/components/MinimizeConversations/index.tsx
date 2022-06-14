@@ -11,7 +11,7 @@ export default function MinimizeConversations({}: Props) {
   );
   const friends = useAppSelector((state) => state.friendSlice.friends);
   return (
-    <div className='fixed right-4 bottom-8 flex flex-col gap-y-4'>
+    <div className='fixed right-10 bottom-8 flex flex-col gap-y-4 z-50'>
       {minimizeConversations.map((conversation, index) => (
         <Conversation conversation={conversation} key={index} />
       ))}

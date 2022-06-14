@@ -11,7 +11,7 @@ export default function Conversations({}: Props) {
   );
   console.log(conversations);
   return (
-    <div className='h-[85%] flex flex-col z-0'>
+    <div className='h-[80%] flex flex-col z-0'>
       <div className='font-semibold italic border-b flex'>
         <span>Friends</span>
         <button className='ml-auto mr-2'>

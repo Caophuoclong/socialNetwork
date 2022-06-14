@@ -176,7 +176,7 @@ export default function MessageCard({ conversation }: Props) {
   return (
     <div
       ref={messageCardRef}
-      className='w-[340px] h-[470px] shadow-2xl dark:bg-darkSecondary bg-white z-50 flex flex-col rounded-t-lg z-50'
+      className='w-[340px] h-[470px] shadow-2xl dark:bg-darkSecondary bg-white flex flex-col rounded-t-lg z-50'
     >
       <div
         ref={headerRef}

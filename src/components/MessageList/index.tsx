@@ -60,7 +60,7 @@ export default function MessageList({ messageList, className }: Props) {
                   new Date(messageList[index - 1].createAt).getTime() >=
                   3000 * 1000 && (
                   <div className='border w-full relative my-8'>
-                    <div className='absolute p-1 rounded-full bg-gray-400 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2'>
+                    <div className='absolute p-1 rounded-full bg-gray-400 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 truncate'>
                       {moment(message.createAt).format('hh:mm') +
                         ' ' +
                         dateToSomeThing(message.createAt, locale)}

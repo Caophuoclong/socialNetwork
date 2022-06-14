@@ -9,9 +9,9 @@ type Props = {
 
 function DefaultLayout({ children }: Props) {
   return (
-    <div className='bg-[#f0f2f5 dark:bg-darkPrimary dark:text-white min-h-screen px-2'>
-      <Header className='flex items-center gap-x-2 h-[50px] bg-[#f0f2f5] dark:bg-darkPrimary mb-2 top-0 w-full z-50 sticky' />
-      <div className='flex gap-x-2 mt-auto dark:bg-darkPrimary dark:text-white pt-[2vh]'>
+    <div className='bg-[#f0f2f5 dark:bg-darkPrimary dark:text-white min-h-screen'>
+      <Header className='flex items-center gap-x-2 h-[50px] bg-[#f0f2f5] dark:bg-darkPrimary top-0 w-full z-50 sticky px-2' />
+      <div className='flex gap-x-2 dark:bg-darkPrimary dark:text-white px-2 mt-4'>
         <LeftBar className='w-[250px] dark:bg-darkPrimary dark:text-white sidebar' />
         <main className='flex-1 rounded-t-xl bg-[#f9fafb] dark:bg-darkSecondary dark:text-white'>
           {children}
@@ -24,8 +24,8 @@ function DefaultLayout({ children }: Props) {
 export function LayoutWithoutRightBar({ children }: Props) {
   return (
     <div className='bg-[#f0f2f5 dark:bg-darkPrimary dark:text-white min-h-screen'>
-      <Header className='flex items-center gap-x-2 h-[50px] bg-[#f0f2f5] dark:bg-darkPrimary mb-2 top-0 w-full z-50 px-4 sticky' />
-      <div className='flex gap-x-2 mt-auto dark:bg-darkPrimary dark:text-white mx-4'>
+      <Header className='flex items-center gap-x-2 h-[50px] bg-[#f0f2f5] dark:bg-darkPrimary mb-2 top-0 w-full z-50 sticky px-2' />
+      <div className='flex gap-x-2 dark:bg-darkPrimary dark:text-white px-2 mt-4'>
         <LeftBar className='w-[250px] dark:bg-darkPrimary dark:text-white sidebar' />
         <main className='flex-1 p-4 rounded-t-xl bg-[#f9fafb] dark:bg-darkSecondary dark:text-white'>
           {children}
