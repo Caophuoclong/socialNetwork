@@ -8,26 +8,26 @@ interface IGlobalSilce {
 const initialState: IGlobalSilce = {
   minimizeConversation: [],
   choosendConversation: [
-    {
-      imgUrl: 'https://picsum.photos/40',
-      participants: [
-        {
-          _id: '0',
-          name: 'John Smith',
-          username: 'johhnsmit',
-          imgUrl: 'https://picsum.photos/40',
-        },
-        {
-          _id: 'f2',
-          name: 'John Smith123',
-          username: 'johhnsmit',
-          imgUrl: 'https://picsum.photos/40',
-        },
-      ],
-      createAt: 'asdas',
-      type: 'private',
-      _id: '4',
-    },
+    // {
+    //   imgUrl: 'https://picsum.photos/40',
+    //   participants: [
+    //     {
+    //       _id: '0',
+    //       name: 'John Smith',
+    //       username: 'johhnsmit',
+    //       imgUrl: 'https://picsum.photos/40',
+    //     },
+    //     {
+    //       _id: 'f2',
+    //       name: 'John Smith123',
+    //       username: 'johhnsmit',
+    //       imgUrl: 'https://picsum.photos/40',
+    //     },
+    //   ],
+    //   createAt: 'asdas',
+    //   type: 'private',
+    //   _id: '4',
+    // },
   ],
   locale: 'vi',
 };

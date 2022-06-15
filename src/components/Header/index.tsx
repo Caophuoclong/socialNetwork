@@ -18,11 +18,11 @@ function Header({ className }: Props) {
         </span>
       </div>
       <div className='w-4/6 flex'>
-        <div className='w-1/2 rounded-lg px-4 py-2 border flex gap-x-2 items-center'>
+        <div className='w-1/2 rounded-lg px-4 py-2 dark:bg-darkSecondary flex gap-x-2 items-center bg-white'>
           <FiSearch size='16' />
           <input
             type='text'
-            className='w-full outline-none font-medium bg-transparent dark:text-white'
+            className='w-full font-medium bg-transparent dark:text-white outline-none'
             placeholder='Search for something here...'
             spellCheck='false'
           />

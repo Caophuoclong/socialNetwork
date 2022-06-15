@@ -1,8 +1,10 @@
 import { Avatar } from 'flowbite-react';
 import React from 'react';
-import { BiHeart } from 'react-icons/bi';
+import { BiHeart, BiShare } from 'react-icons/bi';
+import { FaRegComments } from 'react-icons/fa';
 import { IoIosMore } from 'react-icons/io';
 import { useAppSelector } from '~/app/hooks';
+import Comment from '../Comment';
 import { away } from '../MessageList/chatLogic';
 import Content from './Content';
 import ImageGrid from './ImageGrid';
@@ -11,15 +13,21 @@ type Props = {
   avatar: string;
   createAt: string;
   name: string;
-  content: string;
+  content?: string;
+  images?: Array<string>;
 };
 
-export default function Feed({ avatar, createAt, name, content }: Props) {
-  console.log(createAt);
+export default function Feed({
+  avatar,
+  createAt,
+  name,
+  content,
+  images,
+}: Props) {
   const locale = useAppSelector((state) => state.globalSlice.locale);
 
   return (
-    <div className='p-4 rounded-lg dark:bg-darkPrimary my-4 flex flex-col gap-y-4'>
+    <div className='p-4 rounded-lg dark:bg-darkPrimary my-4 flex flex-col gap-y-4 bg-white'>
       <div className='flex gap-x-4 items-center'>
         <Avatar img={avatar} rounded />
         <div>
@@ -30,16 +38,8 @@ export default function Feed({ avatar, createAt, name, content }: Props) {
           <IoIosMore size='20px' />
         </button>
       </div>
-      <Content> Chao m </Content>
-      <ImageGrid
-        images={[
-          'https://picsum.photos/440',
-          'https://picsum.photos/440',
-          'https://picsum.photos/440',
-          'https://picsum.photos/440',
-          'https://picsum.photos/440',
-        ]}
-      />
+      <Content> {content} </Content>
+      <ImageGrid images={images} />
       <div className='flex '>
         <div className='flex gap-x-1'>
           <BiHeart size='20px' />
@@ -50,6 +50,29 @@ export default function Feed({ avatar, createAt, name, content }: Props) {
           <div>3 shares</div>
         </div>
       </div>
+      <div className='flex items-center justify-between px-4'>
+        <div className='flex gap-x-1'>
+          <BiHeart size='20px' />
+          <span>Like</span>
+        </div>
+        <button
+          onClick={() => {
+            const textAr = document.getElementById('commentInput');
+            if (textAr !== null) {
+              textAr.focus();
+            }
+          }}
+          className='flex gap-x-1'
+        >
+          <FaRegComments size='20px' />
+          <span>Comment</span>
+        </button>
+        <div className='flex gap-x-1'>
+          <BiShare size='20px' />
+          <span>Share</span>
+        </div>
+      </div>
+      <Comment />
     </div>
   );
 }

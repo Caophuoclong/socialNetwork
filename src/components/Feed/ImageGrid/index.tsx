@@ -1,7 +1,7 @@
 import React from 'react';
 
 type Props = {
-  images: Array<string>;
+  images?: Array<string>;
 };
 function Render(image: string) {
   return (
@@ -40,6 +40,7 @@ function RenderOverlay(images: Array<string>) {
     <div className='grid grid-rows-4 grid-cols-2 grid-flow-col gap-4 h-96'>
       {[one, two, three, four].map((image, index) => (
         <div
+          key={index}
           className='row-span-2 col-span-1 ima  last:relative'
           style={{
             backgroundImage: `url('${image}')`,
@@ -49,10 +50,10 @@ function RenderOverlay(images: Array<string>) {
             <div
               className='absolute  w-full h-full'
               style={{
-                background: 'rgba(156, 163, 175,0.3)',
+                background: 'rgba(156, 163, 175,0.5)',
               }}
             >
-              <span className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl'>
+              <span className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl text-white'>
                 +{xxx.length}
               </span>
             </div>
@@ -63,18 +64,19 @@ function RenderOverlay(images: Array<string>) {
   );
 }
 export default function ImageGrid({ images }: Props) {
+  const xxx = [...(images || [])];
   return (
     <>
       {(() => {
-        switch (images.length) {
+        switch (xxx.length) {
           case 1:
-            return Render(images[0]);
+            return Render(xxx[0]);
           case 2:
-            return RenderTwo(images);
+            return RenderTwo(xxx);
           case 3:
-            return RenderThree(images);
+            return RenderThree(xxx);
           default:
-            return RenderOverlay(images);
+            return RenderOverlay(xxx);
         }
       })()}
     </>

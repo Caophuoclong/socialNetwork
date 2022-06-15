@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { HiOutlineMinus, HiX } from 'react-icons/hi';
+import { HiOutlineMinus } from 'react-icons/hi';
 import { TiTimes } from 'react-icons/ti';
-import { IoAddCircle, IoImage } from 'react-icons/io5';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { EnumMessageType, IConversation, IMessage } from '../../interfaces';
 import {
@@ -19,7 +18,7 @@ import { away } from '../MessageList/chatLogic';
 import { FiMaximize2 } from 'react-icons/fi';
 import { FileChoosen, sliderSettings } from '~/constants';
 import InputFile from '../InputFile';
-import { Dropdown, Toast } from 'flowbite-react';
+import { Dropdown } from 'flowbite-react';
 import PreviewFile from '../PreviewFile';
 import Slider from 'react-slick';
 
@@ -60,12 +59,12 @@ export default function MessageCard({ conversation }: Props) {
     dispatch(removeChoosenConversation(conversation));
   };
 
-  const [text, setText] = useState('');
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
+  const [text, setText] = useState<string>('');
+  const handleOnChange = (value: string) => {
+    setText(value);
   };
-  const handleEnterPress = (event: React.KeyboardEvent<HTMLElement>) => {
-    if (event.keyCode === 13 && text.length > 0) {
+  const handleEnterPress = () => {
+    if (text.length > 0) {
       const message: IMessage = {
         _id: '123',
         conversationId: conversation._id,
@@ -101,7 +100,7 @@ export default function MessageCard({ conversation }: Props) {
           }
         }
       }
-  }, [text]);
+  }, [text, refFileChoosen]);
   useEffect(() => {
     if (dropdownRef.current) {
       dropdownRef.current.children[0].classList.remove(
@@ -270,7 +269,7 @@ export default function MessageCard({ conversation }: Props) {
             ))}
           </Slider>
         </div>
-        <div className='flex h-[40px] items-center gap-x-2 mt-auto mb-2'>
+        <div className='flex min-h-[40px] items-center gap-x-2 mt-auto mb-2'>
           <div
             ref={fileRef}
             className={`min-w-[${wFileRef}] text-primary flex gap-x-3`}
