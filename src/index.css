@@ -87,3 +87,6 @@ input[type='text']:focus {
   height: 90vh;
   box-sizing: border-box;
 }
+.ima {
+  border-radius: 5px;
+}

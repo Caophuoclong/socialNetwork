@@ -16,17 +16,17 @@ export default function PostingFeed({}: Props) {
     if (numberOfLines - 1 > 1) {
       ta.rows = 3;
     }
-    if (ta.value.length < 10) {
+    if (ta.value.length < 50) {
       ta.rows = 1;
     }
   };
   return (
-    <div className='bg-white rounded-lg p-4 flex flex-col gap-y-2'>
+    <div className='bg-white rounded-lg p-4 flex flex-col gap-y-2 dark:bg-darkPrimary mb-4'>
       <div className='flex gap-x-4 '>
         <Avatar img={user.imgUrl} rounded />
         <textarea
           onChange={onContentChange}
-          className='p-2 rounded-lg bg-gray-300 w-[90%]  resize-none outline-none'
+          className='p-2 rounded-lg bg-gray-300 w-[90%]  resize-none outline-none dark:bg-darkSecondary'
           rows={1}
           placeholder='What are you thinking?'
         />

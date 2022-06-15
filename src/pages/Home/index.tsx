@@ -4,6 +4,7 @@ import PostingFeed from '~/components/PostingFeed';
 import { useAppSelector } from '~/app/hooks';
 import MessageCard from '~/components/MessageCard';
 import { IConversation } from '~/interfaces';
+import Feed from '~/components/Feed';
 
 type Props = {};
 
@@ -16,20 +17,18 @@ export default function HomePage({}: Props) {
   );
   return (
     <div className='relative min-h-full  rounded-xl bg-transparent px-8 flex gap-x-8 py-4'>
-      <div className='w-[60%]'>
+      <div className='xl:w-[60%] w-full'>
         <PostingFeed />
-        <div className='dark:bg-darkPrimary h-96'>homepage</div>
-        <div className='dark:bg-darkPrimary h-96'>homepage</div>
-        <div className='dark:bg-darkPrimary h-96'>homepage</div>
-        <div className='dark:bg-darkPrimary h-96'>homepage</div>
-        <div className='dark:bg-darkPrimary h-96'>homepage</div>
-        <div className='dark:bg-darkPrimary h-96'>homepage</div>
-        <div className='dark:bg-darkPrimary h-96'>homepage</div>
-        <div className='dark:bg-darkPrimary h-96'>homepage</div>
-        <div className='dark:bg-darkPrimary h-96'>homepage</div>
-        <div className='dark:bg-darkPrimary h-96'>homepage</div>
+        <Feed
+          avatar='https://picsum.photos/40'
+          content='chao may'
+          createAt={new Date().toString()}
+          name='John Smith'
+        />
       </div>
-      <div className='sidebar rounded-lg bg-white w-[40%]'>hihi</div>
+      <div className='sidebar rounded-lg bg-white w-[40%] hidden xl:flex dark:bg-darkPrimary'>
+        hihi
+      </div>
 
       <div className='fixed bottom-0 right-[100px] flex gap-x-4 z-50'>
         {([] as IConversation[])
