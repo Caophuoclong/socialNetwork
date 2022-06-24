@@ -4,6 +4,9 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+
 // import 'flowbite';
 import './index.css';
 
@@ -12,7 +15,9 @@ const root = createRoot(container);
 
 root.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>
 );
 
