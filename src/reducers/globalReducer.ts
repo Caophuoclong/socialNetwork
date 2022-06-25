@@ -55,12 +55,14 @@ const globalSlice = createSlice({
       return {
         ...state,
         choosendConversation: state.choosendConversation.filter(
-          (conversation) => conversation._id !== action.payload._id
+          (conversation) =>
+            conversation.conversationId !== action.payload.conversationId
         ),
         minimizeConversation: ([] as IConversation[]).concat(
           action.payload,
           state.minimizeConversation.filter(
-            (conversation) => conversation._id !== action.payload._id
+            (conversation) =>
+              conversation.conversationId !== action.payload.conversationId
           )
         ),
       };
@@ -72,7 +74,8 @@ const globalSlice = createSlice({
       return {
         ...state,
         choosendConversation: state.choosendConversation.filter(
-          (conversation) => conversation._id !== action.payload._id
+          (conversation) =>
+            conversation.conversationId !== action.payload.conversationId
         ),
       };
     },
@@ -83,7 +86,8 @@ const globalSlice = createSlice({
       return {
         ...state,
         minimizeConversation: state.minimizeConversation.filter(
-          (conversation) => conversation._id !== action.payload._id
+          (conversation) =>
+            conversation.conversationId !== action.payload.conversationId
         ),
       };
     },

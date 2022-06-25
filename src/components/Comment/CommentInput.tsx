@@ -14,7 +14,7 @@ export default function CommentInput({}: Props) {
   };
   return (
     <div className='flex gap-x-4'>
-      <Avatar img={user.imgUrl} rounded />
+      <Avatar img={user.avatarUrl} rounded />
       <div className='w-[90%] dark:bg-darkSecondary rounded-lg flex items-center'>
         <TextInput
           placeholder='Enter you comment'

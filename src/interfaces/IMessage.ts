@@ -1,10 +1,10 @@
-import { EnumMessageType } from ".";
+import { EnumMessageType } from '.';
 
 export default interface IMessage {
-    _id: string;
-    text: string;
-    createAt: string | Date;
-    senderId: string;
-    conversationId: string;
-    type: EnumMessageType;
+  messageId: string;
+  messageContent: string;
+  messageCreateAt: string | Date;
+  sourceId: string;
+  conversationId: string;
+  messageType: EnumMessageType;
 }

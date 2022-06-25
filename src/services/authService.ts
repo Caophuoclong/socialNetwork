@@ -21,8 +21,11 @@ const authServer = {
         } else {
           reject(responseData.message);
         }
-      } catch (e) {
-        reject('Error: ');
+      } catch (e: any) {
+        console.log(e.response.data);
+        if (e.response.data.code === 401) {
+          reject(e.response.data.message);
+        }
       }
     });
   },

@@ -42,7 +42,7 @@ export default function MessageList({ messageList, className }: Props) {
     if (
       messageList &&
       messageList.length > 0 &&
-      messageList[messageList.length - 1].senderId === user._id
+      messageList[messageList.length - 1].sourceId === user.userId
     )
       return scrollToBottomWithSmooth();
   }, [messageList]);
@@ -56,18 +56,18 @@ export default function MessageList({ messageList, className }: Props) {
           messageList.map((message, index) => (
             <div key={index}>
               {index !== 0 &&
-                new Date(message.createAt).getTime() -
-                  new Date(messageList[index - 1].createAt).getTime() >=
+                new Date(message.messageCreateAt).getTime() -
+                  new Date(messageList[index - 1].messageCreateAt).getTime() >=
                   3000 * 1000 && (
                   <div className='border w-full relative my-8'>
                     <div className='absolute p-1 rounded-full bg-gray-400 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 truncate'>
-                      {moment(message.createAt).format('hh:mm') +
+                      {moment(message.messageCreateAt).format('hh:mm') +
                         ' ' +
-                        dateToSomeThing(message.createAt, locale)}
+                        dateToSomeThing(message.messageCreateAt, locale)}
                     </div>
                   </div>
                 )}
-              {message.senderId === user._id ? (
+              {message.sourceId === user.userId ? (
                 <MyMessage message={message} key={index} />
               ) : (
                 <OtherMessage message={message} key={index} />

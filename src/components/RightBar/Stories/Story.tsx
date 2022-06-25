@@ -14,9 +14,9 @@ export default function Story({ imgUrl, name, className }: Props) {
         alt=''
         className='my-2 w-12 h-12 rounded-full ring-2 ring-primary border-2'
       />
-      <span className='dark:text-white'>
+      <div className='dark:text-white truncate'>
         {name.split(' ')[name.split(' ').length - 1]}
-      </span>
+      </div>
     </div>
   );
 }

@@ -50,11 +50,14 @@ export default function MessageCard({ conversation }: Props) {
 
   // const [isMinimize, setIsMinimized] = useState(false);
   const [fileChoosens, setFileChoosens] = useState<File[]>([]);
+  console.log(conversation);
   const other = conversation.participants.filter(
-    (participant) => participant._id !== user._id
+    (participant) => participant.userId !== user.userId
   )[0];
-  const friend = friends.filter((friend) => friend._id === other._id)[0];
-
+  console.log(friends);
+  const friend =
+    friends.filter((friend) => friend.userId === other.userId)[0] || {};
+  console.log(friend);
   const handleRemoveChoosenConversation = () => {
     dispatch(removeChoosenConversation(conversation));
   };
@@ -66,12 +69,12 @@ export default function MessageCard({ conversation }: Props) {
   const handleEnterPress = () => {
     if (text.length > 0) {
       const message: IMessage = {
-        _id: '123',
-        conversationId: conversation._id,
-        createAt: new Date().toISOString(),
-        senderId: user._id,
-        text: text,
-        type: EnumMessageType.TEXT,
+        messageId: '123',
+        conversationId: conversation.conversationId,
+        messageCreateAt: new Date().toISOString(),
+        sourceId: user.userId,
+        messageContent: text,
+        messageType: EnumMessageType.TEXT,
       };
       setText('');
       dispatch(addMessages(message));
@@ -110,33 +113,34 @@ export default function MessageCard({ conversation }: Props) {
       );
     }
   }, [dropdownRef]);
-
-  // useEffect(() => {
-  //   if (
-  //     messageCardRef.current &&
-  //     messageListRef.current &&
-  //     inputBoxRef.current &&
-  //     headerRef.current
-  //   ) {
-  //     if (isMinimize) {
-  //       messageListRef.current.classList.add('hidden');
-  //       inputBoxRef.current.classList.add('hidden');
-  //       messageCardRef.current.classList.add('dark:bg-transparent');
-  //       messageCardRef.current.classList.add('bg-transparent');
-  //       messageCardRef.current.classList.remove('bg-white');
-  //       messageCardRef.current.classList.remove('shadow-2xl');
-  //       headerRef.current.classList.add('mt-auto');
-  //     } else {
-  //       messageListRef.current.classList.remove('hidden');
-  //       inputBoxRef.current.classList.remove('hidden');
-  //       messageCardRef.current.classList.remove('dark:bg-transparent');
-  //       messageCardRef.current.classList.add('bg-white');
-  //       messageCardRef.current.classList.remove('bg-transparent');
-  //       messageCardRef.current.classList.add('shadow-2xl');
-  //       headerRef.current.classList.remove('mt-auto');
-  //     }
-  //   }
-  // }, [isMinimize]);
+  {
+    // useEffect(() => {
+    //   if (
+    //     messageCardRef.current &&
+    //     messageListRef.current &&
+    //     inputBoxRef.current &&
+    //     headerRef.current
+    //   ) {
+    //     if (isMinimize) {
+    //       messageListRef.current.classList.add('hidden');
+    //       inputBoxRef.current.classList.add('hidden');
+    //       messageCardRef.current.classList.add('dark:bg-transparent');
+    //       messageCardRef.current.classList.add('bg-transparent');
+    //       messageCardRef.current.classList.remove('bg-white');
+    //       messageCardRef.current.classList.remove('shadow-2xl');
+    //       headerRef.current.classList.add('mt-auto');
+    //     } else {
+    //       messageListRef.current.classList.remove('hidden');
+    //       inputBoxRef.current.classList.remove('hidden');
+    //       messageCardRef.current.classList.remove('dark:bg-transparent');
+    //       messageCardRef.current.classList.add('bg-white');
+    //       messageCardRef.current.classList.remove('bg-transparent');
+    //       messageCardRef.current.classList.add('shadow-2xl');
+    //       headerRef.current.classList.remove('mt-auto');
+    //     }
+    //   }
+    // }, [isMinimize]);
+  }
 
   const handleUploadFile = (files: FileList | null) => {
     let fileList: File[] = [
@@ -192,7 +196,7 @@ export default function MessageCard({ conversation }: Props) {
                 <div className='w-10 h-10 rounded-full ring-2 ring-gray-300 flex items-center justify-center'>
                   <img
                     className='w-9 h-9 rounded-full'
-                    src={friend.imgUrl}
+                    src={friend.avatarUrl}
                     alt=''
                   />
                 </div>
@@ -204,14 +208,16 @@ export default function MessageCard({ conversation }: Props) {
               </div>
 
               <div className='space-y-px font-medium text-left'>
-                <div className='text-left dark:text-white'>{friend.name}</div>
+                <div className='text-left dark:text-white'>
+                  {friend.userFName}
+                </div>
                 {friend.isOnline ? (
                   <div className='text-sm text-gray-500 dark:text-gray-300'>
                     Online
                   </div>
                 ) : (
                   <div className='text-sm text-gray-500 dark:text-gray-400'>
-                    {away(friend.lastOnline.toLocaleString(), locale)}
+                    {away((friend.lastOnline || '').toLocaleString(), locale)}
                   </div>
                 )}
               </div>
@@ -220,7 +226,9 @@ export default function MessageCard({ conversation }: Props) {
           placement='left'
         >
           <Dropdown.Item>
-            <Link to={`/messages/${conversation._id}`}>Open in Messenger</Link>
+            <Link to={`/messages/${conversation.conversationId}`}>
+              Open in Messenger
+            </Link>
           </Dropdown.Item>
         </Dropdown>
         <div className='ml-auto mr-2 flex items-center'>
@@ -245,7 +253,10 @@ export default function MessageCard({ conversation }: Props) {
         </div>
       </div>
       <div ref={messageListRef} className='max-h-[360px] min-h-[240px] h-full'>
-        <MessageList className='' messageList={messages[conversation._id]} />
+        <MessageList
+          className=''
+          messageList={messages[conversation.conversationId]}
+        />
       </div>
       <div
         ref={inputBoxRef}

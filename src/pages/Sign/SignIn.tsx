@@ -49,7 +49,7 @@ export default function SignIn({}: Props) {
         });
       })
       .catch((e) => {
-        toast.error('Sign in failed!');
+        toast.error(e);
       });
   };
   return (

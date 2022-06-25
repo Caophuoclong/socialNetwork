@@ -13,7 +13,7 @@ export default function PostingFeed({}: Props) {
   return (
     <div className='bg-white rounded-lg p-4 flex flex-col gap-y-2 dark:bg-darkPrimary mb-4'>
       <div className='flex gap-x-4 '>
-        <Avatar img={user.imgUrl} rounded />
+        <Avatar img={user.avatarUrl} rounded />
         <TextInput
           className='bg-gray-200 rounded-lg'
           placeholder='What are you thinking?'

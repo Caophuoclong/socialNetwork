@@ -5,17 +5,20 @@ import { DefaultLayout } from './components';
 import { privateRoutes, publicRoutes } from './routes';
 import { IRoute } from './interfaces';
 import moment from 'moment';
-import { useAppSelector } from './app/hooks';
+import { useAppSelector, useAppDispatch } from './app/hooks';
+import { getMe } from '~/reducers/userReducer';
 import 'moment/locale/vi';
 function App() {
   const locale = useAppSelector((state) => state.globalSlice.locale);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
   useEffect(() => {
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) navigate('/signin');
+    else dispatch(getMe());
   }, []);
   return (
     <Routes>

@@ -16,10 +16,11 @@ export default function Conversation({ conversation }: Props) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userSlice);
   const other = conversation.participants.filter(
-    (participant) => participant._id !== user._id
+    (participant) => participant.userId !== user.userId
   );
   const friends = useAppSelector((state) => state.friendSlice.friends);
-  const friend = friends.filter((friend) => friend._id === other[0]._id)[0];
+  const friend =
+    friends.filter((friend) => friend.userId === other[0].userId)[0] || {};
   const handleClose = () => {
     dispatch(removeMinimizeConversation(conversation));
   };
@@ -35,13 +36,13 @@ export default function Conversation({ conversation }: Props) {
         placement='left'
         content={
           <div className='px-2'>
-            <div className=' font-semibold'>{friend.name}</div>
+            <div className=' font-semibold'>{friend.userFName}</div>
             <div>hi</div>
           </div>
         }
       >
         <img
-          src={friend.imgUrl}
+          src={friend.avatarUrl}
           alt=''
           className='w-10 h-10 rounded-full '
           onClick={maximize}

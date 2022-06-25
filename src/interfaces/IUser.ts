@@ -1,7 +1,9 @@
-
 export default interface IUser {
-    _id: string;
-    name: string;
-    imgUrl: string;
-    username: string;
+  userId: string;
+  username: string;
+  userEmail: string;
+  accCreatedAt?: Date;
+  userFName: string;
+  userAge?: number;
+  avatarUrl: string;
 }

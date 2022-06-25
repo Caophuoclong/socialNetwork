@@ -29,9 +29,9 @@ function Header({ className }: Props) {
         </div>
       </div>
       <div className='w-1/6 flex justify-end items-center gap-x-2 ml-auto'>
-        <span className='font-semibold text-lg'>{user.name}</span>
+        <span className='font-semibold text-lg'>{user.userFName}</span>
         <div className='p-px rounded-lg ring-2 ring-primary'>
-          <img src={user.imgUrl} alt='' className='w-9 h-9 rounded-lg ' />
+          <img src={user.avatarUrl} alt='' className='w-9 h-9 rounded-lg ' />
         </div>
       </div>
     </header>

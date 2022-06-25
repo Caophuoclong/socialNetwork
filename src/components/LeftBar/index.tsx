@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { MdOutlineSpaceDashboard, MdOutlineLogout } from 'react-icons/md';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { BiMessageSquareDetail, BiNotification, BiUser } from 'react-icons/bi';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 type Props = {
   className?: string;
 };
@@ -38,13 +38,10 @@ export default function LeftBar({ className }: Props) {
       title: 'Settings',
       link: '/settings',
     },
-    {
-      icon: MdOutlineLogout,
-      title: 'Logout',
-      link: '/123',
-    },
   ];
   const location = useLocation();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const pathName = location.pathname;
     const elements = document.querySelectorAll('a');
@@ -78,6 +75,16 @@ export default function LeftBar({ className }: Props) {
           </Link>
         );
       })}
+      <button
+        onClick={() => {
+          localStorage.removeItem('accessToken');
+          window.location.reload();
+        }}
+        className='flex items-center gap-x-2 font-medium p-2 rounded-md hover:bg-[#4e5d78] hover:text-white text-[#4e5d78] cursor-pointer dark:text-white'
+      >
+        <MdOutlineLogout size='24px' />
+        Logout
+      </button>
     </nav>
   );
 }
