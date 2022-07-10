@@ -1,10 +1,21 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { IConversation } from '../interfaces';
+import authService from '~/services/authService';
 interface IGlobalSilce {
   choosendConversation: IConversation[];
   minimizeConversation: IConversation[];
   locale: 'en' | 'vi';
 }
+export const reFreshToken = createAsyncThunk('reFreshToken', () => {
+  return new Promise<string>(async (resolve, reject) => {
+    try {
+      const response = await authService.refreshToken();
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+});
 const initialState: IGlobalSilce = {
   minimizeConversation: [],
   choosendConversation: [

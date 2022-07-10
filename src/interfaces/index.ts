@@ -9,4 +9,6 @@ export type { default as IFriendPending } from './IFriendPending';
 export type { default as IFileChoosen } from './IFileChoosen';
 export type { default as ICustomFile } from './ICustomFile';
 export { default as EnumMessageType } from './EnumMessageType';
+export { default as EnumErrorCode } from './EnumErrorCode';
+
 export * from './ISign';

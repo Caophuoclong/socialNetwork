@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 const axiosClient = axios.create({
   baseURL: url,
+
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',

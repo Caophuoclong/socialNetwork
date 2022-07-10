@@ -10,5 +10,13 @@ interface ISginUp {
     year: number;
   };
 }
+interface ISignINDTO {
+  token: string;
+  firsName: string;
+  lastName: string;
+  username: string;
+  id: string;
+  email: string;
+}
 type ISignIn = Pick<ISginUp, 'username' | 'password'>;
-export type { ISginUp, ISignIn };
+export type { ISginUp, ISignIn, ISignINDTO };

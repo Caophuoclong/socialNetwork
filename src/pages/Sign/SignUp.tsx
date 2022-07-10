@@ -35,12 +35,13 @@ export default function SignIn({}: Props) {
   const onSubmit = (data: ISginUp) => {
     const dataRequest = {
       username: data.username,
-      userEmail: data.email,
+      email: data.email,
       password: data.password,
     };
     authServer
       .signUp(dataRequest)
       .then((response) => {
+        console.log(response);
         toast.success('Signup successfully!', {
           onClose: () => {
             navigate('/signin', {

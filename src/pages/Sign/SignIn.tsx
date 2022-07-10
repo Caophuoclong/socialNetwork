@@ -13,6 +13,10 @@ import { FaUser } from 'react-icons/fa';
 import { MdPassword } from 'react-icons/md';
 import authServer from '../../services/authService';
 import { toast, ToastContainer } from 'react-toastify';
+import userService from '../../services/userService';
+import { useAppDispatch } from '../../app/hooks';
+import { getMe } from '~/reducers/userReducer';
+import { unwrapResult } from '@reduxjs/toolkit';
 const signInValidateSchema = yup.object().shape({
   username: usernameSchema,
   password: passwordSchema,
@@ -24,6 +28,7 @@ type stateType = {
   };
 };
 export default function SignIn({}: Props) {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const routeState = location.state as {
@@ -43,8 +48,12 @@ export default function SignIn({}: Props) {
       .signin(data)
       .then((response) => {
         toast.success('Sign in successfully!', {
-          onClose: () => {
-            navigate('/');
+          onClose: async () => {
+            try {
+              const unwarp = await dispatch(getMe(response));
+              unwrapResult(unwarp);
+              navigate('/');
+            } catch (error) {}
           },
         });
       })

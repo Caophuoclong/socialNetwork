@@ -13,11 +13,15 @@ const initialState: IUser & Interface = {
   userEmail: 'caophuoclong1@gmail.com',
   loading: false,
 };
-export const getMe = createAsyncThunk('getMe', () => {
-  return userService
-    .getMe()
-    .then((response) => response)
-    .catch((error) => error);
+export const getMe = createAsyncThunk('getMe', (token?: string) => {
+  return new Promise<IUser>(async (resolve, reject) => {
+    try {
+      const response = await userService.getMe(token);
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
 });
 const userSlice = createSlice({
   name: 'user slice',

@@ -14,7 +14,7 @@ export default function Button({ Icon, title, iconSize, ...props }: Props) {
       className='dark:bg-darkSecondary hover:dark:bg-opacity-70 p-3 rounded-xl w-[35%] flex items-center justify-center gap-x-4'
     >
       {Icon && <Icon size={iconSize || '0px'} />}
-      {title}
+      <p className='truncate'>{title}</p>
     </button>
   );
 }

@@ -39,13 +39,34 @@ export default function Input({
   const errorMessage = formState.errors[name]?.message;
   return (
     <div
-      className={`flex rounded-xl dark:bg-darkPrimary p-2 w-[40%] group ring-2 relative ${
+      className={`flex rounded-xl dark:bg-darkPrimary p-2 w-[40%] ring-2 relative ${
         errorMessage
           ? 'dark:ring-red-400 ring-red-300'
           : 'dark:ring-[#d6d1d1] ring-purple-600 '
       } items-center`}
     >
       {BeginIcon && <BeginIcon size={iconSize} />}
+      {errorMessage && (
+        <>
+          <div className='mr-2 dark:text-red-400 text-red-300 xl:hidden group'>
+            ?
+            <p
+              className={`absolute group-hover:visible invisible w-[150px]  ${
+                errorMessage ? 'dark:text-red-400 text-red-300' : ''
+              } line-clamp-3 top-0 -left-1/2 -translate-x-1/2 select-none dark:bg-darkSecondary px-2 rounded-lg`}
+            >
+              {errorMessage as string}
+            </p>
+          </div>
+          <p
+            className={`absolute invisible xl:visible xl:-right-1/2 max-w-[150px]  ${
+              errorMessage ? 'dark:text-red-400 text-red-300' : ''
+            } line-clamp-3`}
+          >
+            {errorMessage as string}
+          </p>
+        </>
+      )}
       <input
         id={name}
         type={
@@ -70,13 +91,7 @@ export default function Input({
         {name.charAt(0).toUpperCase() + name.slice(1)}{' '}
       </label>
       {AfterIcon && <AfterIcon size={iconSize} />}
-      <p
-        className={`absolute -right-1/2 w-[250px] translate-x-1/3 ${
-          errorMessage ? 'dark:text-red-400 text-red-300' : ''
-        }`}
-      >
-        {errorMessage as string}
-      </p>
+
       {required && <p className='text-red-700 flex items-center'>*</p>}
     </div>
   );
